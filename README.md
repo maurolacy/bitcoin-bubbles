@@ -21,19 +21,19 @@ This repository contains implementations of:
 ### Quick Start
 
 1. **Install Dependencies**:
-   - Mathematica 12.0 or later
-   - R (for auxiliary scripts)
+   - Mathematica 12.0 or later.
+   - R (for auxiliary scripts).
 
 2. **Run the Overvaluation Model**:
-   - Open `bitcoinUsersCsvNoVAuto.nb` in Mathematica
-   - The notebook automatically downloads data from online sources
-   - Execute all cells (Cell → Evaluate Notebook)
-   - Results are saved to the `pdf/` folder
+   - Open `bitcoinUsersCsvNoVAuto.nb` in Mathematica.
+   - The notebook automatically downloads data from online sources.
+   - Execute all cells (Cell → Evaluate Notebook).
+   - Results are exported to the `pdf/` folder.
 
 3. **Run LPPLS Model**:
-   - Open the appropriate LPPLS notebook (e.g., `LPPLS25.nb` for 2025 predictions)
-   - Execute all cells
-   - The model will fit price data and attempt to identify bubble regimes
+   - Open the appropriate LPPLS notebook (e.g., `LPPLS25.nb` for 2025 predictions).
+   - Execute all cells.
+   - The model will fit price data and attempt to identify bubble regimes.
 
 ### Data Sources
 
@@ -47,8 +47,8 @@ The notebooks automatically fetch data from:
 
 ### Output Files
 
-- **PDF files**: Generated plots and analysis saved to `pdf/` folder
-- **CSV files**: Processed data saved to `csv/` folder (if generated)
+- **PDF files**: Generated plots and analysis saved to `pdf/` folder.
+- **CSV files**: Processed data saved to `csv/` folder (if generated).
 
 ## Methodology
 
@@ -151,16 +151,17 @@ If you use this code in your research, publications, or projects, please provide
 
 When citing this implementation, please include:
 
-- **This repository**: https://github.com/maurolacy/bitcoin-bubbles
-- **Original academic paper**: "Are Bitcoin Bubbles Predictable? Combining a Generalized Metcalfe's Law and the LPPLS Model" (arXiv:1803.05663)
-- **Author**: [Mauro Lacy Bopp](https://github.com/maurolacy)
+- **This repository**: [Bitcoin-bubbles](https://github.com/maurolacy/bitcoin-bubbles).
+- **Original academic paper**: "Are Bitcoin Bubbles Predictable? Combining a Generalized Metcalfe's Law and the LPPLS Model" (arXiv:1803.05663).
+- **Author**: [Mauro Lacy Bopp](https://github.com/maurolacy).
 
 ### Example Citation
 
 ```
 [Mauro Lacy Bopp]. (2025). Bitcoin Bubble Prediction Models - Mathematica Implementation.
-GitHub Repository: [Bitcoin-bubbles](https://github.com/maurolacy/bitcoin-bubbles)
-Based on: Sornette et al. (2018). "Are Bitcoin Bubbles Predictable? Combining a Generalized Metcalfe's Law and the LPPLS Model." arXiv:1803.05663
+GitHub Repository: [Bitcoin-bubbles](https://github.com/maurolacy/bitcoin-bubbles).
+Based on: Sornette et al. (2018). "Are Bitcoin Bubbles Predictable? Combining a Generalized
+Metcalfe's Law and the LPPLS Model." arXiv:1803.05663
 ```
 
 ### Commercial Use
