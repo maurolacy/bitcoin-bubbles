@@ -1,0 +1,25 @@
+# Temporary files
+tmp/
+*.tmp
+
+# Mathematica temporary files
+*.nb~
+
+# Generated outputs (uncomment if you don't want to commit these)
+pdf/
+png/
+csv/
+
+# OS files
+.DS_Store
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# R files
+.Rhistory
+.RData
+.Ruserdata
