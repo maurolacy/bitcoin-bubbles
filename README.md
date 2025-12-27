@@ -9,7 +9,7 @@ This repository contains implementations of:
 - **LPPLS Model**: Log-Periodic Power Law Singularity model for predicting bubble breakouts/crashes.
 - **Metcalfe's Law Model**: Using active Bitcoin addresses as a proxy for network users to assess overvaluation.
 
-**⚠️ Important Disclaimer**: This is research / educational software. Not investment advice. Use at your own risk. See the [Disclaimer](#disclaimer) section below.
+**⚠️ Important Disclaimer**: This is research/educational software. Not investment advice. Use at your own risk. See the [Disclaimer](#disclaimer) section below.
 
 ## Dependencies
 
@@ -48,6 +48,7 @@ The notebooks automatically fetch data from:
 ### Output Files
 
 - **PDF files**: Generated plots and analysis saved to `pdf/` folder.
+- **PNG files**: Generated plots saved to `png/` folder.
 - **CSV files**: Processed data saved to `csv/` folder (if generated).
 
 ## Methodology
@@ -68,7 +69,8 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 - **LPPLS21.nb** - Breakout prediction for the 2021 bubble.
 - **LPPLS23.nb** - Breakout prediction for the 2023 bubble.
 - **LPPLS24.nb** - Breakout prediction for the 2024 bubble.
-- **LPPLS25.nb** - Breakout prediction for the 2025 bubble (most recent).
+- **LPPLS25.nb** - Breakout prediction for the 2025 bubble.
+- **LPPLS26.nb** - Breakout prediction for the 2026 bubble (ongoing/starting).
 
 ### Overvaluation Models
 
@@ -158,7 +160,7 @@ When citing this implementation, please include:
 ### Example Citation
 
 ```
-[Mauro Lacy Bopp]. (2025). Bitcoin Bubble Prediction Models - Mathematica Implementation.
+Mauro Lacy Bopp. (2025). Bitcoin Bubble Prediction Models - Mathematica Implementation.
 GitHub Repository: [Bitcoin-bubbles](https://github.com/maurolacy/bitcoin-bubbles).
 Based on: Sornette et al. (2018). "Are Bitcoin Bubbles Predictable? Combining a Generalized
 Metcalfe's Law and the LPPLS Model." arXiv:1803.05663
