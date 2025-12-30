@@ -63,7 +63,7 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 
 ## Notebooks
 
-### LPPLS Models
+### LPPLS Models for Bitcoin
 
 - **LPPLS18.nb** - Breakout prediction for the 2018 bubble.
 - **LPPLS21.nb** - Breakout prediction for the 2021 bubble.
@@ -71,6 +71,10 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 - **LPPLS24.nb** - Breakout prediction for the 2024 bubble.
 - **LPPLS25.nb** - Breakout prediction for the 2025 bubble.
 - **LPPLS26.nb** - Breakout prediction for the 2026 bubble (ongoing/starting).
+
+### LPPLS Model for Gold - Extra / Recent Work
+
+- **LPPLS26-Gold.nb** - Breakout prediction for the Gold price.
 
 ### Overvaluation Models
 
