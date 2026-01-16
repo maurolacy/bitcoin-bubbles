@@ -74,7 +74,7 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 
 ### LPPLS Model for Gold - Extra / Recent Work
 
-- **LPPLS26-Gold.nb** - Breakout prediction for the Gold price.
+- **LPPLS26-Gold.nb** - Breakout prediction for the price of Gold.
 
 ### Overvaluation Models
 
