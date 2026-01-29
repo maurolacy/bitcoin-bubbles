@@ -226,7 +226,7 @@ if __name__ == "__main__":
     SYMBOL = 'KAG/USDT'
     TIMEFRAME = '1h'
     PAGE_LIMIT = 200  # BitMart typically returns ~200 rows per request
-    OUTPUT_FILE = f"{SYMBOL.replace('/', '_')}_{TIMEFRAME}.csv"
+    OUTPUT_FILE = f"./csv/{SYMBOL.replace('/', '_')}_{TIMEFRAME}.csv"
     
     # Optional: Set a specific start date (leave as None to fetch from earliest available)
     #START_DATE = None

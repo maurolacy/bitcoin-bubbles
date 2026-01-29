@@ -23,3 +23,8 @@ csv/
 .Rhistory
 .RData
 .Ruserdata
+
+# Python venv
+pyvenv.cfg
+bin/
+lib/
