@@ -171,6 +171,31 @@ def _infer_symbol_from_df(df):
     return df["symbol"].iloc[0]
 
 
+# Standard filename format: Exchange_SYMBOL_TIMEFRAME.csv (e.g. Bitmart_KAG_USDT_1h.csv)
+_VALID_TIMEFRAMES = ("1m", "5m", "15m", "1h", "1d")
+
+
+def _parse_filename_for_autodetect(path):
+    """
+    Parse CSV path in format Exchange_SYMBOL_TIMEFRAME.csv.
+    Returns (exchange_id, symbol, timeframe) or None if parsing fails.
+    """
+    base = os.path.splitext(os.path.basename(path))[0]
+    parts = base.split("_")
+    if len(parts) < 3:
+        return None
+    if parts[-1] not in _VALID_TIMEFRAMES:
+        return None
+    timeframe = parts[-1]
+    exchange_id = parts[0].lower()
+    # SYMBOL is everything between first and last part, e.g. KAG_USDT -> KAG/USDT
+    symbol_parts = parts[1:-1]
+    if len(symbol_parts) < 2:
+        return None
+    symbol = symbol_parts[0] + "/" + "_".join(symbol_parts[1:])
+    return (exchange_id, symbol, timeframe)
+
+
 def _read_existing_csv(csv_path):
     """
     Read existing CSV; supports simple format (datetime, open, high, low, close, volume)
@@ -317,6 +342,13 @@ if __name__ == "__main__":
              "download until --end or today, merge and overwrite FILE.",
     )
     parser.add_argument(
+        "--autodetect",
+        action="store_true",
+        help="With --expand: infer exchange, symbol and timeframe from FILE name. "
+             "Expects format Exchange_SYMBOL_TIMEFRAME.csv (e.g. Bitmart_KAG_USDT_1h.csv). "
+             "Errors if parsing fails.",
+    )
+    parser.add_argument(
         "--exchange",
         default="bitmart",
         help="Exchange id (default: bitmart).",
@@ -365,6 +397,14 @@ if __name__ == "__main__":
     end_date = _parse_date(args.end)
 
     if args.expand:
+        if args.autodetect:
+            parsed = _parse_filename_for_autodetect(args.expand)
+            if parsed is None:
+                raise SystemExit(
+                    f"Autodetect failed: filename must match Exchange_SYMBOL_TIMEFRAME.csv "
+                    f"(e.g. Bitmart_KAG_USDT_1h.csv). Got: {args.expand!r}"
+                )
+            exchange_id, symbol, timeframe = parsed
         expand_csv(
             args.expand,
             exchange_id,
