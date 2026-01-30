@@ -139,6 +139,38 @@ def _timeframe_delta_ms(timeframe):
     return 60 * 60 * 1000  # default 1h
 
 
+def _infer_timeframe_from_index(df, tolerance_ms=5000):
+    """
+    Infer timeframe string from datetime index by comparing two consecutive rows.
+    Returns e.g. '1m', '5m', '15m', '1h', '1d' or None if ambiguous.
+    """
+    if df is None or len(df) < 2:
+        return None
+    # Use last two rows (most reliable for hourly/daily)
+    times = df.index.sort_values()
+    t1, t2 = times[-2], times[-1]
+    delta_ms = (pd.Timestamp(t2) - pd.Timestamp(t1)).total_seconds() * 1000
+    # Map delta to standard timeframe (with tolerance)
+    candidates = [
+        (60 * 1000, "1m"),
+        (5 * 60 * 1000, "5m"),
+        (15 * 60 * 1000, "15m"),
+        (60 * 60 * 1000, "1h"),
+        (24 * 60 * 60 * 1000, "1d"),
+    ]
+    for target_ms, tf in candidates:
+        if abs(delta_ms - target_ms) <= tolerance_ms:
+            return tf
+    return None
+
+
+def _infer_symbol_from_df(df):
+    """If CSV has a 'symbol' column, return its value (first row); else None."""
+    if df is None or "symbol" not in df.columns:
+        return None
+    return df["symbol"].iloc[0]
+
+
 def _read_existing_csv(csv_path):
     """
     Read existing CSV; supports simple format (datetime, open, high, low, close, volume)
@@ -176,6 +208,20 @@ def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_dat
         raise FileNotFoundError(f"File not found: {csv_path}")
 
     existing_df, is_cdd_format, vol_col = _read_existing_csv(csv_path)
+
+    # Ensure CSV matches requested symbol and timeframe
+    inferred_timeframe = _infer_timeframe_from_index(existing_df)
+    inferred_symbol = _infer_symbol_from_df(existing_df)
+    if inferred_timeframe is not None and inferred_timeframe != timeframe:
+        raise ValueError(
+            f"File timeframe does not match: file appears to be {inferred_timeframe!r}, "
+            f"but --timeframe {timeframe!r} was given."
+        )
+    if inferred_symbol is not None and inferred_symbol != symbol:
+        raise ValueError(
+            f"File symbol does not match: file contains {inferred_symbol!r}, "
+            f"but --symbol {symbol!r} was given."
+        )
 
     # Last timestamp (as datetime for display)
     last_dt = existing_df.index.max()
