@@ -304,54 +304,95 @@ def save_to_cryptodatadownload_format(df, symbol, output_file):
     df_out[cols].to_csv(output_file, index=False)
 
 
+def _parse_date(s):
+    """Parse ISO date string (YYYY-MM-DD) to naive datetime at midnight."""
+    if s is None:
+        return None
+    dt = datetime.fromisoformat(s.strip())
+    return dt.replace(hour=0, minute=0, second=0, microsecond=0) if dt else None
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Fetch KAG/USDT (or other pair) hourly OHLCV data from BitMart via ccxt."
+        description="Fetch OHLCV data from an exchange via ccxt (e.g. BitMart KAG/USDT).",
     )
     parser.add_argument(
         "--expand",
         metavar="FILE",
         help="Continue download: read last timestamp from FILE, add one timeframe, "
-             "download until yesterday (or end of data), merge and overwrite FILE.",
+             "download until --end or yesterday, merge and overwrite FILE.",
+    )
+    parser.add_argument(
+        "--exchange",
+        default="bitmart",
+        help="Exchange id (default: bitmart).",
+    )
+    parser.add_argument(
+        "--symbol",
+        default="KAG/USDT",
+        help="Trading pair (default: KAG/USDT).",
+    )
+    parser.add_argument(
+        "--timeframe",
+        default="1h",
+        help="Candle timeframe: 1m, 5m, 15m, 1h, 1d (default: 1h).",
+    )
+    parser.add_argument(
+        "--page-limit",
+        type=int,
+        default=200,
+        metavar="N",
+        help="Candles per request (default: 200).",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        metavar="FILE",
+        help="Output CSV path (default: ./csv/SYMBOL_TIMEFRAME.csv).",
+    )
+    parser.add_argument(
+        "--start",
+        metavar="YYYY-MM-DD",
+        help="Start date for full download (default: earliest available).",
+    )
+    parser.add_argument(
+        "--end",
+        metavar="YYYY-MM-DD",
+        help="End date (default: yesterday).",
     )
     args = parser.parse_args()
 
-    # --- Configuration ---
-    EXCHANGE_ID = 'bitmart'
-    SYMBOL = 'KAG/USDT'
-    TIMEFRAME = '1h'
-    PAGE_LIMIT = 200  # BitMart typically returns ~200 rows per request
-    OUTPUT_FILE = f"./csv/{SYMBOL.replace('/', '_')}_{TIMEFRAME}.csv"
+    exchange_id = args.exchange
+    symbol = args.symbol
+    timeframe = args.timeframe
+    page_limit = args.page_limit
+    output_file = args.output or f"./csv/{symbol.replace('/', '_')}_{timeframe}.csv"
+    start_date = _parse_date(args.start)
+    end_date = _parse_date(args.end)
 
     if args.expand:
         expand_csv(
             args.expand,
-            EXCHANGE_ID,
-            SYMBOL,
-            TIMEFRAME,
-            page_limit=PAGE_LIMIT,
-            end_date=None,  # defaults to yesterday inside expand_csv
+            exchange_id,
+            symbol,
+            timeframe,
+            page_limit=page_limit,
+            end_date=end_date,
         )
     else:
-        # --- Full download (no --expand) ---
-        # Optional: Set a specific start date (leave as None to fetch from earliest available)
-        #START_DATE = None
-        START_DATE = datetime(2025, 1, 1)
+        if end_date is None:
+            end_date = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(days=1)
 
-        # End date defaults to yesterday if not specified
-        #END_DATE = None  # Will default to yesterday
-        END_DATE = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
-
-        print(f"Downloading historical {SYMBOL} {TIMEFRAME} data from {EXCHANGE_ID}...")
-        print(f"Using page limit: {PAGE_LIMIT} candles per request\n")
+        print(f"Downloading historical {symbol} {timeframe} data from {exchange_id}...")
+        print(f"Using page limit: {page_limit} candles per request\n")
 
         data = fetch_all_historical_data(
-            EXCHANGE_ID,
-            SYMBOL,
-            TIMEFRAME,
-            start_date=START_DATE,
-            end_date=END_DATE,
-            page_limit=PAGE_LIMIT
+            exchange_id,
+            symbol,
+            timeframe,
+            start_date=start_date,
+            end_date=end_date,
+            page_limit=page_limit,
         )
 
         if not data.empty:
@@ -364,9 +405,7 @@ if __name__ == "__main__":
             print(f"\nLast few records:")
             print(data.tail())
 
-            # Save in simple format
-            output = f"{SYMBOL.replace('/', '_')}_{TIMEFRAME}.csv"
-            data.to_csv(output)
-            print(f"Saved to {output}")
+            data.to_csv(output_file)
+            print(f"Saved to {output_file}")
         else:
             print("\nFailed to download data.")
