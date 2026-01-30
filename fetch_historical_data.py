@@ -296,7 +296,7 @@ if __name__ == "__main__":
         "--output",
         "-o",
         metavar="FILE",
-        help="Output CSV path (default: ./csv/SYMBOL_TIMEFRAME.csv).",
+        help="Output CSV path (default: ./csv/Exchange_SYMBOL_TIMEFRAME.csv).",
     )
     parser.add_argument(
         "--start",
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     symbol = args.symbol
     timeframe = args.timeframe
     page_limit = args.page_limit
-    output_file = args.output or f"./csv/{symbol.replace('/', '_')}_{timeframe}.csv"
+    output_file = args.output or f"./csv/{exchange_id.capitalize()}_{symbol.replace('/', '_')}_{timeframe}.csv"
     start_date = _parse_date(args.start)
     end_date = _parse_date(args.end)
 
