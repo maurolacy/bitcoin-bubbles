@@ -8,52 +8,9 @@ import os
 import time
 
 
-def fetch_intraday_data(exchange_id, symbol, timeframe, since=None, limit=1000):
+def fetch_historical_data(exchange_id, symbol, timeframe, start_date=None, end_date=None, page_limit=200):
     """
-    Fetches intraday OHLCV data from a specified exchange.
-
-    :param exchange_id: The ID of the exchange (e.g., 'binance', 'bitmart').
-    :param symbol: The trading pair (e.g., 'KAG/USDT').
-    :param timeframe: Intraday timeframe (e.g., '1h', '1m', '5m', '15m').
-    :param since: Unix timestamp in milliseconds for the start date (optional).
-    :param limit: Number of candles to fetch per request (exchange specific, often max 500 or 1000).
-    :return: A pandas DataFrame with OHLCV data.
-    """
-    try:
-        # Instantiate the exchange
-        exchange = getattr(ccxt, exchange_id)({
-            'rateLimit': 1200,  # Adjust rate limit as needed
-            'enableRateLimit': True,
-        })
-
-        # Fetch OHLCV data
-        ohlcv = exchange.fetch_ohlcv(symbol, timeframe, since=since, limit=limit)
-
-        if not ohlcv:
-            print(f"No data found for {symbol} on {exchange_id}")
-            return pd.DataFrame()
-
-        # Convert to Pandas DataFrame
-        df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-        df['datetime'] = pd.to_datetime(df['timestamp'], unit='ms')
-        df.set_index('datetime', inplace=True)
-        df.drop('timestamp', axis=1, inplace=True)
-
-        return df
-
-    except ccxt.ExchangeNotAvailable as e:
-        print(f"Exchange not available: {e}")
-    except ccxt.NetworkError as e:
-        print(f"Network error: {e}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-    return pd.DataFrame()
-
-
-def fetch_all_historical_data(exchange_id, symbol, timeframe, start_date=None, end_date=None, page_limit=200):
-    """
-    Fetches all available historical data by paginating through multiple requests.
+    Fetches available historical data by paginating through multiple requests.
     Handles BitMart's pagination (~200 rows per request).
 
     BitMart pagination behavior:
@@ -65,7 +22,7 @@ def fetch_all_historical_data(exchange_id, symbol, timeframe, start_date=None, e
     :param symbol: The trading pair (e.g., 'KAG/USDT').
     :param timeframe: Intraday timeframe (e.g., '1h').
     :param start_date: Start date as datetime object (optional, fetches from earliest available if None).
-    :param end_date: End date as datetime object (defaults to yesterday if None).
+    :param end_date: End date as datetime object (defaults to today if None).
     :param page_limit: Number of candles per request (BitMart typically returns ~200).
     :return: A pandas DataFrame with all historical OHLCV data.
     """
@@ -76,7 +33,7 @@ def fetch_all_historical_data(exchange_id, symbol, timeframe, start_date=None, e
 
     # Set end_date to now minus 1 hour if not provided
     if end_date is None:
-        end_date = datetime.now().replace(minute=0, second=0, microsecond=0).timedelta(hours=1)
+        end_date = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(hours=1)
 
     # Convert dates to milliseconds timestamps
     end_timestamp_ms = int(end_date.timestamp() * 1000)
@@ -130,16 +87,7 @@ def fetch_all_historical_data(exchange_id, symbol, timeframe, start_date=None, e
 
             # Update since to the timestamp of the last candle + 1 timeframe unit
             # This ensures we don't miss any data and don't duplicate the last candle
-            if timeframe == '1h':
-                current_since = last_timestamp + (60 * 60 * 1000)  # Add 1 hour in milliseconds
-            elif timeframe.endswith('m'):
-                timeframe_minutes = int(timeframe.rstrip('m'))
-                current_since = last_timestamp + (timeframe_minutes * 60 * 1000)
-            elif timeframe == '1d':
-                current_since = last_timestamp + (24 * 60 * 60 * 1000)  # Add 1 day
-            else:
-                # Default: add 1 hour
-                current_since = last_timestamp + (60 * 60 * 1000)
+            current_since = last_timestamp + _timeframe_delta_ms(timeframe)
 
             # Rate limiting - be respectful to the exchange
             time.sleep(exchange.rateLimit / 1000)
@@ -221,7 +169,7 @@ def _read_existing_csv(csv_path):
 def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_date=None):
     """
     Continue a data download from an existing CSV: take the last timestamp,
-    add one timeframe, and download up until end_date (default: yesterday) or out of data.
+    add one timeframe, and download up until end_date (default: today) or out of data.
     Merges new data with existing and overwrites the file.
     """
     if not os.path.exists(csv_path):
@@ -250,12 +198,12 @@ def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_dat
         start_date = last_dt + timedelta(milliseconds=delta_ms)
 
     if end_date is None:
-        end_date = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(days=1)
+        end_date = datetime.now().replace(minute=0, second=0, microsecond=0)
 
     print(f"Expand: last row in CSV is {last_dt}")
     print(f"Expand: fetching from {start_date} until {end_date}")
 
-    new_df = fetch_all_historical_data(
+    new_df = fetch_historical_data(
         exchange_id, symbol, timeframe,
         start_date=start_date,
         end_date=end_date,
@@ -320,7 +268,7 @@ if __name__ == "__main__":
         "--expand",
         metavar="FILE",
         help="Continue download: read last timestamp from FILE, add one timeframe, "
-             "download until --end or yesterday, merge and overwrite FILE.",
+             "download until --end or today, merge and overwrite FILE.",
     )
     parser.add_argument(
         "--exchange",
@@ -358,7 +306,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--end",
         metavar="YYYY-MM-DD",
-        help="End date (default: yesterday).",
+        help="End date (default: today).",
     )
     args = parser.parse_args()
 
@@ -381,12 +329,12 @@ if __name__ == "__main__":
         )
     else:
         if end_date is None:
-            end_date = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(days=1)
+            end_date = datetime.now().replace(minute=0, second=0, microsecond=0)
 
         print(f"Downloading historical {symbol} {timeframe} data from {exchange_id}...")
         print(f"Using page limit: {page_limit} candles per request\n")
 
-        data = fetch_all_historical_data(
+        data = fetch_historical_data(
             exchange_id,
             symbol,
             timeframe,
