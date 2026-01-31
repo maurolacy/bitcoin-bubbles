@@ -80,6 +80,16 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 
 - **LPPLS26-Silver.nb** - Breakout prediction for the price of Silver. Uses KAG/USDT (Kinesis Silver) hourly data from BitMart as a proxy for spot Silver (no free intraday spot Silver data available); data is fetched via `fetch_historical_data.py`.
 
+Requires a Python 3.10+ venv environment with the following packages installed:
+- pandas
+- ccxt
+
+```bash
+python3 -m venv .
+source ./bin/activate
+python3 -m pip install -r requirements.txt
+```
+
 ### Overvaluation Models
 
 - **bitcoinUsersCsvNoVAuto.nb** - Overvaluation model with automatic data download and processing (recommended).
