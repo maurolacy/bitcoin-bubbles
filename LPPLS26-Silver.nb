@@ -126,7 +126,7 @@ Cell[BoxData[
        ",", 
        RowBox[{
        "\"\<source \>\"", "<>", "base", "<>", "\"\<bin/activate && \>\"", "<>",
-         "fetchScript", "<>", "\"\< --expand \>\"", "<>", "hourlyPricesCsv", 
+         "fetchScript", "<>", "\"\< --extend \>\"", "<>", "hourlyPricesCsv", 
         "<>", "\"\< --autodetect\>\""}]}], "}"}], ",", " ", "All"}], 
     "]"}]}]}]], "Input",
  CellLabel->"In[22]:=",ExpressionUUID->"fb564d7a-f56e-436a-998f-32ae40ecc1dd"],

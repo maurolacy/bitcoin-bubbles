@@ -223,7 +223,7 @@ def _read_existing_csv(csv_path):
     return df, False, 'volume'
 
 
-def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_date=None):
+def extend_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_date=None):
     """
     Continue a data download from an existing CSV: take the last timestamp,
     add one timeframe, and download up until end_date (default: today) or out of data.
@@ -271,8 +271,8 @@ def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_dat
     if end_date is None:
         end_date = datetime.now().replace(minute=0, second=0, microsecond=0)
 
-    print(f"Expand: last row in CSV is {last_dt}")
-    print(f"Expand: fetching from {start_date} until {end_date}")
+    print(f"Extend: last row in CSV is {last_dt}")
+    print(f"Extend: fetching from {start_date} until {end_date}")
 
     new_df = fetch_historical_data(
         exchange_id, symbol, timeframe,
@@ -302,7 +302,7 @@ def expand_csv(csv_path, exchange_id, symbol, timeframe, page_limit=200, end_dat
     else:
         combined.to_csv(csv_path)
 
-    print(f"Expand: merged {len(new_df)} new rows; total {len(combined)} rows. Saved to {csv_path}")
+    print(f"Extend: merged {len(new_df)} new rows; total {len(combined)} rows. Saved to {csv_path}")
     return combined
 
 
@@ -336,7 +336,7 @@ if __name__ == "__main__":
         description="Fetch OHLCV data from an exchange via ccxt (e.g. BitMart KAG/USDT).",
     )
     parser.add_argument(
-        "--expand",
+        "--extend",
         metavar="FILE",
         help="Continue download: read last timestamp from FILE, add one timeframe, "
              "download until --end or today, merge and overwrite FILE.",
@@ -344,7 +344,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--autodetect",
         action="store_true",
-        help="With --expand: infer exchange, symbol and timeframe from FILE name. "
+        help="With --extend: infer exchange, symbol and timeframe from FILE name. "
              "Expects format Exchange_SYMBOL_TIMEFRAME.csv (e.g. Bitmart_KAG_USDT_1h.csv). "
              "Errors if parsing fails.",
     )
@@ -396,17 +396,17 @@ if __name__ == "__main__":
     start_date = _parse_date(args.start)
     end_date = _parse_date(args.end)
 
-    if args.expand:
+    if args.extend:
         if args.autodetect:
-            parsed = _parse_filename_for_autodetect(args.expand)
+            parsed = _parse_filename_for_autodetect(args.extend)
             if parsed is None:
                 raise SystemExit(
                     f"Autodetect failed: filename must match Exchange_SYMBOL_TIMEFRAME.csv "
-                    f"(e.g. Bitmart_KAG_USDT_1h.csv). Got: {args.expand!r}"
+                    f"(e.g. Bitmart_KAG_USDT_1h.csv). Got: {args.extend!r}"
                 )
             exchange_id, symbol, timeframe = parsed
-        expand_csv(
-            args.expand,
+        extend_csv(
+            args.extend,
             exchange_id,
             symbol,
             timeframe,
