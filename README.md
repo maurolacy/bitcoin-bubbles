@@ -72,9 +72,13 @@ Uses active Bitcoin addresses as a proxy for network users. Fits Bitcoin market 
 - **LPPLS25.nb** - Breakout prediction for the 2025 bubble.
 - **LPPLS26.nb** - Breakout prediction for the 2026 bubble (ongoing/starting).
 
-### LPPLS Model for Gold - Extra / Recent Work
+### LPPLS Model for Gold
 
-- **LPPLS26-Gold.nb** - Breakout prediction for the price of Gold.
+- **LPPLS26-Gold.nb** - Breakout prediction for the price of Gold. Uses PAXG hourly price as a proxy for spot Gold (no free intraday Gold spot data).
+
+### LPPLS Model for Silver
+
+- **LPPLS26-Silver.nb** - Breakout prediction for the price of Silver. Uses KAG/USDT (Kinesis Silver) hourly data from BitMart as a proxy for spot Silver (no free intraday spot Silver data available); data is fetched via `fetch_historical_data.py`.
 
 ### Overvaluation Models
 
