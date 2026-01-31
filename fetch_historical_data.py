@@ -45,7 +45,7 @@ def fetch_historical_data(exchange_id, symbol, timeframe, start_date=None, end_d
     current_since = since
     page_count = 0
 
-    print(f"Fetching historical data for {symbol} on {exchange_id}...")
+    print(f"Fetching historical data for {symbol} on {exchange_id.capitalize()}...")
     if start_date:
         print(f"  Start date: {start_date}")
     print(f"  End date: {end_date}")
@@ -417,7 +417,7 @@ if __name__ == "__main__":
         if end_date is None:
             end_date = datetime.now().replace(minute=0, second=0, microsecond=0)
 
-        print(f"Downloading historical {symbol} {timeframe} data from {exchange_id}...")
+        print(f"Downloading historical {symbol} {timeframe} data from {exchange_id.capitalize()}...")
         print(f"Using page limit: {page_limit} candles per request\n")
 
         data = fetch_historical_data(
