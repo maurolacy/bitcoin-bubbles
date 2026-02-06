@@ -6,7 +6,7 @@ tmp/
 *.nb~
 
 # Generated outputs (uncomment if you don't want to commit these)
-pdf/
+#pdf/
 png/
 csv/
 
