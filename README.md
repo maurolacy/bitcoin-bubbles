@@ -15,6 +15,8 @@ This repository contains implementations of:
 
 Bitcoin overvaluation vs a generalized Metcalfe’s law fit (active addresses as a proxy for network users). Plots and metrics are refreshed from `bitcoinUsersCsvNoVAuto.nb` into [`predictions/`](./predictions/); see also the aggregated metrics page [`predictions/LATEST.md`](./predictions/LATEST.md).
 
+*As of the latest run, spot price sits near / slightly below the average of the two fair-value estimates — a relative trough versus recent overvaluation regimes. The parametric fit currently indicates undervaluation; the non-parametric fit still shows modest overvaluation. Model output only; not a recommendation to buy or sell.*
+
 ### Parametric fit
 
 ![BTC overvaluation (parametric)](./predictions/BTC_Overvaluation-P-latest.png)
