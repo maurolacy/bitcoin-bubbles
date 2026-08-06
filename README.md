@@ -13,7 +13,7 @@ This repository contains implementations of:
 
 ## Latest Predictions
 
-Bitcoin overvaluation vs a generalized Metcalfe’s law fit (active addresses as a proxy for network users). Plots are refreshed from `bitcoinUsersCsvNoVAuto.nb` into [`predictions/`](./predictions/).
+Bitcoin overvaluation vs a generalized Metcalfe’s law fit (active addresses as a proxy for network users). Plots and metrics are refreshed from `bitcoinUsersCsvNoVAuto.nb` into [`predictions/`](./predictions/); see also the aggregated metrics page [`predictions/LATEST.md`](./predictions/LATEST.md).
 
 ### Parametric fit
 

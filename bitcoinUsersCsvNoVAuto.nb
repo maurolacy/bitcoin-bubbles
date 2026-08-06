@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1612883,      29298]
-NotebookOptionsPosition[   1594501,      28990]
-NotebookOutlinePosition[   1594966,      29008]
-CellTagsIndexPosition[   1594923,      29005]
+NotebookDataLength[   1614761,      29361]
+NotebookOptionsPosition[   1595954,      29047]
+NotebookOutlinePosition[   1596419,      29065]
+CellTagsIndexPosition[   1596376,      29062]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21323,39 +21323,50 @@ Cell[BoxData[
     RowBox[{"percentage", ":"}]}], " ", "*)"}], "\[IndentingNewLine]", 
   RowBox[{
    RowBox[{"latestPrice", "/", "estimatedPrice"}], "\[IndentingNewLine]", 
-   RowBox[{"Print", "[", 
-    RowBox[{"\"\<Current overvaluation (P): \>\"", ",", " ", 
-     RowBox[{"NumberForm", "[", 
-      RowBox[{
+   RowBox[{"overvaluationPercentage", "=", 
+    RowBox[{
+     RowBox[{"ToString", "[", 
+      RowBox[{"NumberForm", "[", 
        RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"latestPrice", "/", "estimatedPrice"}], "-", "1"}], ")"}], 
-        "100"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"4", ",", "2"}], "}"}]}], "]"}], ",", " ", "\"\<%\>\""}], 
-    "]"}]}]}]], "Input",
- CellLabel->"In[86]:=",ExpressionUUID->"81f2a82a-55af-4a5d-a6f0-b7ac10120e92"],
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"latestPrice", "/", "estimatedPrice"}], "-", "1"}], ")"}], 
+         "100"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "2"}], "}"}]}], "]"}], "]"}], "<>", " ", 
+     "\"\<%\>\""}]}]}]}]], "Input",
+ CellLabel->
+  "In[154]:=",ExpressionUUID->"81f2a82a-55af-4a5d-a6f0-b7ac10120e92"],
 
 Cell[BoxData["0.7609633410015378`"], "Output",
- CellLabel->"Out[86]=",ExpressionUUID->"a2ced4ac-3784-4b5c-aff9-797708002dcd"],
+ CellLabel->
+  "Out[154]=",ExpressionUUID->"1a43ce87-c59c-4d90-9b52-bd2ca6795498"],
+
+Cell[BoxData["\<\"-23.90%\"\>"], "Output",
+ CellLabel->
+  "Out[155]=",ExpressionUUID->"fe156747-3614-4539-bb48-bac6fc97a632"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Print", "[", 
+  RowBox[{
+  "\"\<Current overvaluation (P): \>\"", ",", " ", 
+   "overvaluationPercentage"}], "]"}]], "Input",
+ CellLabel->
+  "In[156]:=",ExpressionUUID->"d0229650-5ae9-44bb-a8f9-1e57228a9959"],
 
 Cell[BoxData[
  InterpretationBox[
-  RowBox[{"\<\"Current overvaluation (P): \"\>", "\[InvisibleSpace]", 
-   TagBox[
-    InterpretationBox[
-     StyleBox["\<\"-23.90\"\>",
-      ShowStringCharacters->False],
-     -23.903665899846217`,
-     AutoDelete->True],
-    NumberForm[#, {4, 2}]& ], "\[InvisibleSpace]", "\<\"%\"\>"}],
-  SequenceForm["Current overvaluation (P): ", 
-   NumberForm[-23.903665899846217`, {4, 2}], "%"],
+  RowBox[{"\<\"Current overvaluation (P): \"\>", 
+   "\[InvisibleSpace]", "\<\"-23.90%\"\>"}],
+  SequenceForm["Current overvaluation (P): ", "-23.90%"],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[86]:=",ExpressionUUID->"911f0ea7-3847-4d64-9aa4-28a5d1995b1c"]
+In[156]:=",ExpressionUUID->"49acaec3-b4af-427e-87ee-39fb6b895619"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -21434,7 +21445,8 @@ Cell[BoxData[
             RowBox[{"first", ",", " ", "#"}], "]"}], "&"}], ")"}]}]}], "]"}], 
       ",", " ", 
       RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}]}]}]], "Input",
- CellLabel->"In[88]:=",ExpressionUUID->"82c89a6f-0d38-45bc-a6d0-7dd4aefbac02"],
+ CellLabel->
+  "In[157]:=",ExpressionUUID->"82c89a6f-0d38-45bc-a6d0-7dd4aefbac02"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {{}, {}, 
@@ -25030,7 +25042,8 @@ covb3OEu97jPAx7yiMc84SnPov5/Pvf/AapBXQA=
      Scaled[0.02], 
      Scaled[0.05]}},
   Ticks->{{}, Automatic}]], "Output",
- CellLabel->"Out[89]=",ExpressionUUID->"30063022-5c14-4b77-a30f-74ffd62f4536"]
+ CellLabel->
+  "Out[158]=",ExpressionUUID->"4dfca699-602d-4d36-b223-3b40cb000207"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -25041,11 +25054,13 @@ Cell[BoxData[
    RowBox[{
    "base", " ", "<>", "\"\<pdf/BTC_Overvaluation_\>\"", "<>", "last", "<>", 
     "\"\<.pdf\>\""}], ",", " ", "bitcoinOvervaluation"}], "]"}]], "Input",
- CellLabel->"In[90]:=",ExpressionUUID->"23506678-7fd8-4fc7-9aa4-ecbd7af3c2ce"],
+ CellLabel->
+  "In[159]:=",ExpressionUUID->"23506678-7fd8-4fc7-9aa4-ecbd7af3c2ce"],
 
 Cell[BoxData["\<\"/Users/mauro/Projects/Bitcoin/pdf/BTC_Overvaluation_2026-08-\
 05.pdf\"\>"], "Output",
- CellLabel->"Out[90]=",ExpressionUUID->"cf1635f9-454a-4894-894a-1d9b0ede067c"]
+ CellLabel->
+  "Out[159]=",ExpressionUUID->"5bbbe444-a272-4ff9-b46b-bc6d6aa4e609"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -25058,7 +25073,22 @@ Cell[BoxData[
     RowBox[{"base", "<>", "\"\<PredictionsExport.wl\>\""}], "]"}], 
    ";"}]}]], "Input",
  CellLabel->
-  "In[107]:=",ExpressionUUID->"7d8bbc07-439c-449c-9a8c-30f462c9f1a0"],
+  "In[160]:=",ExpressionUUID->"7d8bbc07-439c-449c-9a8c-30f462c9f1a0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"bitcoinOvervaluationData", "=", 
+   RowBox[{"<|", 
+    RowBox[{
+     RowBox[{"\"\<Latest price (USD)\>\"", "->", " ", "latestPrice"}], ",", 
+     " ", 
+     RowBox[{"\"\<Estimated price (USD)\>\"", "->", " ", "estimatedPrice"}], 
+     ",", 
+     RowBox[{
+     "\"\<Overvaluation precentage\>\"", "->", " ", 
+      "overvaluationPercentage"}]}], "|>"}]}], ";"}]], "Input",
+ CellLabel->
+  "In[162]:=",ExpressionUUID->"66420c16-5569-4a2e-8bfe-1a86bacfda6d"],
 
 Cell[CellGroupData[{
 
@@ -25066,20 +25096,20 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"exportPrediction", "[", 
    RowBox[{
-   "bitcoinOvervaluation", ",", "\"\<BTC_Overvaluation-P\>\"", ",", "last"}], 
-   "]"}], ";"}]], "Input",
+   "bitcoinOvervaluation", ",", "\"\<BTC_Overvaluation-P\>\"", ",", "last", 
+    ",", " ", "bitcoinOvervaluationData"}], " ", "]"}], ";"}]], "Input",
  CellLabel->
-  "In[108]:=",ExpressionUUID->"66420c16-5569-4a2e-8bfe-1a86bacfda6d"],
+  "In[163]:=",ExpressionUUID->"41e67ab0-b79f-4657-88c8-696822816203"],
 
 Cell[BoxData[
  TemplateBox[{
   "CreateDirectory", "eexist", 
    "\"\\!\\(\\*RowBox[{\\\"\\\\\\\"/Users/mauro/Projects/Bitcoin/predictions\\\
-\\\\\"\\\"}]\\) already exists.\"", 2, 108, 14, 19913416350922741414, "Local"},
+\\\\\"\\\"}]\\) already exists.\"", 2, 163, 37, 19913416350922741414, "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[108]:=",ExpressionUUID->"c328fd29-bd14-4128-ab28-4e073c990a2a"]
+In[163]:=",ExpressionUUID->"d573582d-6423-413a-bc8e-1cc0bb093ae1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -25095,12 +25125,14 @@ Cell[BoxData[
   RowBox[{"marketCapLog", "[", 
    RowBox[{"[", 
     RowBox[{"-", "1"}], "]"}], "]"}]}]], "Input",
- CellLabel->"In[91]:=",ExpressionUUID->"8670abba-9be7-43d0-b1c5-4b0bf594850e"],
+ CellLabel->
+  "In[129]:=",ExpressionUUID->"8670abba-9be7-43d0-b1c5-4b0bf594850e"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"5863", ",", "27.88714460033997`"}], "}"}]], "Output",
- CellLabel->"Out[91]=",ExpressionUUID->"3dd49438-3e81-4709-806c-f2d603871887"]
+ CellLabel->
+  "Out[129]=",ExpressionUUID->"75888ea0-c795-458d-95d6-83afdd5c413f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -25202,36 +25234,37 @@ Cell[BoxData[
   RowBox[{"(*", " ", 
    RowBox[{"Overvaluation", " ", 
     RowBox[{"percentage", ":"}]}], " ", "*)"}], "\[IndentingNewLine]", 
-  RowBox[{"Print", "[", 
-   RowBox[{"\"\<Current overvaluation (NP): \>\"", ",", " ", 
-    RowBox[{"NumberForm", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"overvaluationPercentageNp", "=", 
      RowBox[{
-      RowBox[{
-       RowBox[{"(", 
+      RowBox[{"ToString", "[", 
+       RowBox[{"NumberForm", "[", 
         RowBox[{
-         RowBox[{"latestPrice", "/", "estimatedPriceNp"}], "-", "1"}], ")"}], 
-       "100"}], ",", 
-      RowBox[{"{", 
-       RowBox[{"4", ",", "2"}], "}"}]}], "]"}], ",", " ", "\"\<%\>\""}], 
-   "]"}]}]], "Input",
- CellLabel->"In[95]:=",ExpressionUUID->"9e3a367c-8a62-4c79-9445-7f0a47a4ed96"],
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"latestPrice", "/", "estimatedPriceNp"}], "-", "1"}], 
+           ")"}], "100"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "2"}], "}"}]}], "]"}], "]"}], "<>", " ", 
+      "\"\<%\>\""}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", 
+    RowBox[{
+    "\"\<Current overvaluation (NP): \>\"", ",", " ", 
+     "overvaluationPercentageNp"}], "]"}]}]}]], "Input",
+ CellLabel->
+  "In[148]:=",ExpressionUUID->"9e3a367c-8a62-4c79-9445-7f0a47a4ed96"],
 
 Cell[BoxData[
  InterpretationBox[
-  RowBox[{"\<\"Current overvaluation (NP): \"\>", "\[InvisibleSpace]", 
-   TagBox[
-    InterpretationBox[
-     StyleBox["\<\"24.50\"\>",
-      ShowStringCharacters->False],
-     24.49980105191747,
-     AutoDelete->True],
-    NumberForm[#, {4, 2}]& ], "\[InvisibleSpace]", "\<\"%\"\>"}],
-  SequenceForm["Current overvaluation (NP): ", 
-   NumberForm[24.49980105191747, {4, 2}], "%"],
+  RowBox[{"\<\"Current overvaluation (NP): \"\>", 
+   "\[InvisibleSpace]", "\<\"24.50%\"\>"}],
+  SequenceForm["Current overvaluation (NP): ", "24.50%"],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[95]:=",ExpressionUUID->"eb19b9a8-03ff-4bc8-a018-ad68fcb0093e"]
+In[148]:=",ExpressionUUID->"a7ddbc95-e900-4970-af3e-5804e78d2e7f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -25310,51 +25343,52 @@ Cell[BoxData[
             RowBox[{"first", ",", " ", "#"}], "]"}], "&"}], ")"}]}]}], "]"}], 
       ",", " ", 
       RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}]}]}]], "Input",
- CellLabel->"In[96]:=",ExpressionUUID->"3d883dc1-9214-4316-82cb-1770844ceca7"],
+ CellLabel->
+  "In[150]:=",ExpressionUUID->"3d883dc1-9214-4316-82cb-1770844ceca7"],
 
 Cell[BoxData[
  TemplateBox[{
   "InterpolatingFunction", "dmval", 
    "\"Input value \\!\\(\\*RowBox[{\\\"{\\\", \\\"0\\\", \\\"}\\\"}]\\) lies \
 outside the range of data in the interpolating function. Extrapolation will \
-be used.\"", 2, 96, 7, 19913416350922741414, "Local"},
+be used.\"", 2, 150, 33, 19913416350922741414, "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[96]:=",ExpressionUUID->"4909293a-be92-4e4c-ae70-f2cde5934674"],
+In[150]:=",ExpressionUUID->"c5ef7616-73eb-4a99-a775-79e1838521d8"],
 
 Cell[BoxData[
  TemplateBox[{
   "InterpolatingFunction", "dmval", 
    "\"Input value \\!\\(\\*RowBox[{\\\"{\\\", \\\"3904\\\", \\\"}\\\"}]\\) \
 lies outside the range of data in the interpolating function. Extrapolation \
-will be used.\"", 2, 96, 8, 19913416350922741414, "Local"},
+will be used.\"", 2, 150, 34, 19913416350922741414, "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[96]:=",ExpressionUUID->"e548fe51-81bc-489b-a5e4-86b235ecf1cd"],
+In[150]:=",ExpressionUUID->"42bb5b23-464b-4dbc-8fb2-be7760c4b711"],
 
 Cell[BoxData[
  TemplateBox[{
   "InterpolatingFunction", "dmval", 
    "\"Input value \\!\\(\\*RowBox[{\\\"{\\\", \\\"3905\\\", \\\"}\\\"}]\\) \
 lies outside the range of data in the interpolating function. Extrapolation \
-will be used.\"", 2, 96, 9, 19913416350922741414, "Local"},
+will be used.\"", 2, 150, 35, 19913416350922741414, "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[96]:=",ExpressionUUID->"fce144ec-3dac-4c0f-a1be-8e7a6241bc11"],
+In[150]:=",ExpressionUUID->"198b293f-badf-4c7d-8540-a6f51f3f2e91"],
 
 Cell[BoxData[
  TemplateBox[{
   "General", "stop", 
    "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"InterpolatingFunction\\\
 \", \\\"::\\\", \\\"dmval\\\"}], \\\"MessageName\\\"]\\) will be suppressed \
-during this calculation.\"", 2, 96, 10, 19913416350922741414, "Local"},
+during this calculation.\"", 2, 150, 36, 19913416350922741414, "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[96]:=",ExpressionUUID->"98bb954b-8a34-4fe5-9f47-3eb7b3e150e7"],
+In[150]:=",ExpressionUUID->"128abcad-a74a-4dd6-81c3-5d7787c3f04f"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {{}, {}, 
@@ -28928,7 +28962,8 @@ covb3OEu97jPAx7yiMc84SnPov5/Pvf/AapBXQA=
      Scaled[0.02], 
      Scaled[0.05]}},
   Ticks->{{}, Automatic}]], "Output",
- CellLabel->"Out[97]=",ExpressionUUID->"f0bf6bad-2267-4f68-bf73-63cd590dac7f"]
+ CellLabel->
+  "Out[151]=",ExpressionUUID->"e914a96e-91b4-4e3a-816c-26f5e40b58a9"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -28940,37 +28975,13 @@ Cell[BoxData[
    "base", " ", "<>", "\"\<pdf/BTC_Overvaluation-NP_\>\"", "<>", "last", 
     "<>", "\"\<.pdf\>\""}], ",", " ", "bitcoinOvervaluationNp"}], 
   "]"}]], "Input",
- CellLabel->"In[98]:=",ExpressionUUID->"01b16b6f-093e-4cd9-9798-bce561b3147a"],
+ CellLabel->
+  "In[152]:=",ExpressionUUID->"01b16b6f-093e-4cd9-9798-bce561b3147a"],
 
 Cell[BoxData["\<\"/Users/mauro/Projects/Bitcoin/pdf/BTC_Overvaluation-NP_2026-\
 08-05.pdf\"\>"], "Output",
- CellLabel->"Out[98]=",ExpressionUUID->"a3180ada-2fae-4b60-a344-f3333296c85f"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"Export", " ", 
-    RowBox[{"prediction", ":"}]}], " ", "*)"}], "\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{"exportPrediction", "[", 
-    RowBox[{
-    "bitcoinOvervaluationNp", ",", "\"\<BTC_Overvaluation-NP\>\"", ",", 
-     "last"}], "]"}], ";"}]}]], "Input",
  CellLabel->
-  "In[109]:=",ExpressionUUID->"1f858f60-a343-4759-a040-1e075446a7aa"],
-
-Cell[BoxData[
- TemplateBox[{
-  "CreateDirectory", "eexist", 
-   "\"\\!\\(\\*RowBox[{\\\"\\\\\\\"/Users/mauro/Projects/Bitcoin/predictions\\\
-\\\\\"\\\"}]\\) already exists.\"", 2, 109, 15, 19913416350922741414, "Local"},
-  "MessageTemplate"]], "Message", "MSG",
- CellLabel->
-  "During evaluation of \
-In[109]:=",ExpressionUUID->"23644640-b4bb-438e-aec0-026b1245d7be"]
+  "Out[152]=",ExpressionUUID->"21a66a9e-30fb-4146-a174-65984271a182"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -28981,10 +28992,56 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"estimatedPrice", ",", " ", "estimatedPriceNp"}], "}"}], 
    "]"}]}]], "Input",
- CellLabel->"In[99]:=",ExpressionUUID->"80a1f7c8-d1b7-4d3a-83df-0d8762b252bc"],
+ CellLabel->
+  "In[153]:=",ExpressionUUID->"021a8d42-245b-46e7-bd2e-3ee172293e3d"],
 
 Cell[BoxData["68387.36618269165`"], "Output",
- CellLabel->"Out[99]=",ExpressionUUID->"df5e410f-0969-45fd-b9a7-563978793486"]
+ CellLabel->
+  "Out[153]=",ExpressionUUID->"d8e504c9-e1a2-4c05-88ad-e8e8b6c32454"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Export", " ", 
+    RowBox[{"prediction", ":"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"bitcoinOvervaluationNpData", "=", 
+    RowBox[{"<|", 
+     RowBox[{
+      RowBox[{"\"\<Latest price (USD)\>\"", "->", " ", "latestPrice"}], ",", 
+      " ", 
+      RowBox[{
+      "\"\<Estimated price (USD)\>\"", "->", " ", "estimatedPriceNp"}], ",", 
+      RowBox[{
+      "\"\<Overvaluation percentage\>\"", "->", " ", 
+       "overvaluationPercentageNp"}], ",", " ", 
+      RowBox[{
+      "\"\<Estimated price mean (P & NP) (USD)\>\"", "->", " ", 
+       "estimatedPriceMean"}]}], "|>"}]}], ";"}]}]], "Input",
+ CellLabel->
+  "In[146]:=",ExpressionUUID->"1f858f60-a343-4759-a040-1e075446a7aa"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"exportPrediction", "[", 
+   RowBox[{
+   "bitcoinOvervaluationNp", ",", "\"\<BTC_Overvaluation-NP\>\"", ",", "last",
+     ",", " ", "bitcoinOvervaluationNpData"}], "]"}], ";"}]], "Input",
+ CellLabel->
+  "In[147]:=",ExpressionUUID->"39c8b624-f3e3-4d5a-8cb5-554f5037caf3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "CreateDirectory", "eexist", 
+   "\"\\!\\(\\*RowBox[{\\\"\\\\\\\"/Users/mauro/Projects/Bitcoin/predictions\\\
+\\\\\"\\\"}]\\) already exists.\"", 2, 147, 32, 19913416350922741414, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[147]:=",ExpressionUUID->"9485334f-2a46-44b9-9a1d-ff50811b9818"]
 }, Open  ]]
 }, Open  ]]
 },
@@ -29240,64 +29297,70 @@ Cell[1156432, 21285, 890, 25, 52, "Input",ExpressionUUID->"865ecf58-c290-4755-94
 Cell[1157325, 21312, 124, 1, 34, "Output",ExpressionUUID->"c45d7010-6497-4571-bd0f-806ee52206a0"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1157486, 21318, 730, 19, 73, "Input",ExpressionUUID->"81f2a82a-55af-4a5d-a6f0-b7ac10120e92"],
-Cell[1158219, 21339, 125, 1, 34, "Output",ExpressionUUID->"a2ced4ac-3784-4b5c-aff9-797708002dcd"],
-Cell[1158347, 21342, 556, 15, 24, "Print",ExpressionUUID->"911f0ea7-3847-4d64-9aa4-28a5d1995b1c"]
+Cell[1157486, 21318, 747, 21, 73, "Input",ExpressionUUID->"81f2a82a-55af-4a5d-a6f0-b7ac10120e92"],
+Cell[1158236, 21341, 129, 2, 34, "Output",ExpressionUUID->"1a43ce87-c59c-4d90-9b52-bd2ca6795498"],
+Cell[1158368, 21345, 125, 2, 34, "Output",ExpressionUUID->"fe156747-3614-4539-bb48-bac6fc97a632"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1158940, 21362, 2724, 74, 94, "Input",ExpressionUUID->"82c89a6f-0d38-45bc-a6d0-7dd4aefbac02"],
-Cell[1161667, 21438, 210777, 3594, 400, "Output",ExpressionUUID->"30063022-5c14-4b77-a30f-74ffd62f4536"]
+Cell[1158530, 21352, 232, 6, 30, "Input",ExpressionUUID->"d0229650-5ae9-44bb-a8f9-1e57228a9959"],
+Cell[1158765, 21360, 322, 8, 24, "Print",ExpressionUUID->"49acaec3-b4af-427e-87ee-39fb6b895619"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1372481, 25037, 292, 6, 30, "Input",ExpressionUUID->"23506678-7fd8-4fc7-9aa4-ecbd7af3c2ce"],
-Cell[1372776, 25045, 182, 2, 34, "Output",ExpressionUUID->"cf1635f9-454a-4894-894a-1d9b0ede067c"]
-}, Open  ]],
-Cell[1372973, 25050, 352, 10, 52, "Input",ExpressionUUID->"7d8bbc07-439c-449c-9a8c-30f462c9f1a0"],
-Cell[CellGroupData[{
-Cell[1373350, 25064, 260, 7, 30, "Input",ExpressionUUID->"66420c16-5569-4a2e-8bfe-1a86bacfda6d"],
-Cell[1373613, 25073, 367, 8, 28, "Message",ExpressionUUID->"c328fd29-bd14-4128-ab28-4e073c990a2a"]
+Cell[1159124, 21373, 2728, 75, 94, "Input",ExpressionUUID->"82c89a6f-0d38-45bc-a6d0-7dd4aefbac02"],
+Cell[1161855, 21450, 210781, 3595, 400, "Output",ExpressionUUID->"4dfca699-602d-4d36-b223-3b40cb000207"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1374017, 25086, 411, 11, 52, "Input",ExpressionUUID->"8670abba-9be7-43d0-b1c5-4b0bf594850e"],
-Cell[1374431, 25099, 172, 3, 34, "Output",ExpressionUUID->"3dd49438-3e81-4709-806c-f2d603871887"]
+Cell[1372673, 25050, 296, 7, 30, "Input",ExpressionUUID->"23506678-7fd8-4fc7-9aa4-ecbd7af3c2ce"],
+Cell[1372972, 25059, 186, 3, 34, "Output",ExpressionUUID->"5bbbe444-a272-4ff9-b46b-bc6d6aa4e609"]
+}, Open  ]],
+Cell[1373173, 25065, 352, 10, 52, "Input",ExpressionUUID->"7d8bbc07-439c-449c-9a8c-30f462c9f1a0"],
+Cell[1373528, 25077, 489, 13, 30, "Input",ExpressionUUID->"66420c16-5569-4a2e-8bfe-1a86bacfda6d"],
+Cell[CellGroupData[{
+Cell[1374042, 25094, 304, 7, 30, "Input",ExpressionUUID->"41e67ab0-b79f-4657-88c8-696822816203"],
+Cell[1374349, 25103, 367, 8, 28, "Message",ExpressionUUID->"d573582d-6423-413a-bc8e-1cc0bb093ae1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1374640, 25107, 183, 4, 30, "Input",ExpressionUUID->"cce74b3b-e7de-4b33-a9b4-6bb639536e87"],
-Cell[1374826, 25113, 181, 3, 34, "Output",ExpressionUUID->"aee5d63d-fb7d-4523-b812-a849762182ae"]
+Cell[1374753, 25116, 415, 12, 52, "Input",ExpressionUUID->"8670abba-9be7-43d0-b1c5-4b0bf594850e"],
+Cell[1375171, 25130, 176, 4, 34, "Output",ExpressionUUID->"75888ea0-c795-458d-95d6-83afdd5c413f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1375044, 25121, 513, 15, 30, "Input",ExpressionUUID->"753772a0-9063-4d4c-a9a4-0ac50882ffbc"],
-Cell[1375560, 25138, 426, 9, 28, "Message",ExpressionUUID->"70646aa2-d9a9-469e-a5e1-c5c223831bdb"],
-Cell[1375989, 25149, 125, 1, 34, "Output",ExpressionUUID->"e4330ba4-a037-4ff4-bf2e-8c485464c3db"]
+Cell[1375384, 25139, 183, 4, 30, "Input",ExpressionUUID->"cce74b3b-e7de-4b33-a9b4-6bb639536e87"],
+Cell[1375570, 25145, 181, 3, 34, "Output",ExpressionUUID->"aee5d63d-fb7d-4523-b812-a849762182ae"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1376151, 25155, 894, 25, 52, "Input",ExpressionUUID->"acef84ae-7516-4f07-b264-9d34b38358be"],
-Cell[1377048, 25182, 426, 9, 28, "Message",ExpressionUUID->"2716aa58-2d86-4d67-acfe-5a19007e0baa"],
-Cell[1377477, 25193, 124, 1, 34, "Output",ExpressionUUID->"873c512a-4aa0-49e6-99ab-ddd8eeb321cb"]
+Cell[1375788, 25153, 513, 15, 30, "Input",ExpressionUUID->"753772a0-9063-4d4c-a9a4-0ac50882ffbc"],
+Cell[1376304, 25170, 426, 9, 28, "Message",ExpressionUUID->"70646aa2-d9a9-469e-a5e1-c5c223831bdb"],
+Cell[1376733, 25181, 125, 1, 34, "Output",ExpressionUUID->"e4330ba4-a037-4ff4-bf2e-8c485464c3db"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1377638, 25199, 633, 17, 52, "Input",ExpressionUUID->"9e3a367c-8a62-4c79-9445-7f0a47a4ed96"],
-Cell[1378274, 25218, 551, 15, 24, "Print",ExpressionUUID->"eb19b9a8-03ff-4bc8-a018-ad68fcb0093e"]
+Cell[1376895, 25187, 894, 25, 52, "Input",ExpressionUUID->"acef84ae-7516-4f07-b264-9d34b38358be"],
+Cell[1377792, 25214, 426, 9, 28, "Message",ExpressionUUID->"2716aa58-2d86-4d67-acfe-5a19007e0baa"],
+Cell[1378221, 25225, 124, 1, 34, "Output",ExpressionUUID->"873c512a-4aa0-49e6-99ab-ddd8eeb321cb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1378862, 25238, 2737, 74, 94, "Input",ExpressionUUID->"3d883dc1-9214-4316-82cb-1770844ceca7"],
-Cell[1381602, 25314, 423, 9, 28, "Message",ExpressionUUID->"4909293a-be92-4e4c-ae70-f2cde5934674"],
-Cell[1382028, 25325, 426, 9, 28, "Message",ExpressionUUID->"e548fe51-81bc-489b-a5e4-86b235ecf1cd"],
-Cell[1382457, 25336, 426, 9, 28, "Message",ExpressionUUID->"fce144ec-3dac-4c0f-a1be-8e7a6241bc11"],
-Cell[1382886, 25347, 425, 9, 28, "Message",ExpressionUUID->"98bb954b-8a34-4fe5-9f47-3eb7b3e150e7"],
-Cell[1383314, 25358, 209399, 3572, 400, "Output",ExpressionUUID->"f0bf6bad-2267-4f68-bf73-63cd590dac7f"]
+Cell[1378382, 25231, 870, 25, 73, "Input",ExpressionUUID->"9e3a367c-8a62-4c79-9445-7f0a47a4ed96"],
+Cell[1379255, 25258, 322, 8, 24, "Print",ExpressionUUID->"a7ddbc95-e900-4970-af3e-5804e78d2e7f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1592750, 28935, 300, 7, 30, "Input",ExpressionUUID->"01b16b6f-093e-4cd9-9798-bce561b3147a"],
-Cell[1593053, 28944, 185, 2, 34, "Output",ExpressionUUID->"a3180ada-2fae-4b60-a344-f3333296c85f"]
+Cell[1379614, 25271, 2741, 75, 94, "Input",ExpressionUUID->"3d883dc1-9214-4316-82cb-1770844ceca7"],
+Cell[1382358, 25348, 426, 9, 28, "Message",ExpressionUUID->"c5ef7616-73eb-4a99-a775-79e1838521d8"],
+Cell[1382787, 25359, 429, 9, 28, "Message",ExpressionUUID->"42bb5b23-464b-4dbc-8fb2-be7760c4b711"],
+Cell[1383219, 25370, 429, 9, 28, "Message",ExpressionUUID->"198b293f-badf-4c7d-8540-a6f51f3f2e91"],
+Cell[1383651, 25381, 427, 9, 28, "Message",ExpressionUUID->"128abcad-a74a-4dd6-81c3-5d7787c3f04f"],
+Cell[1384081, 25392, 209403, 3573, 400, "Output",ExpressionUUID->"e914a96e-91b4-4e3a-816c-26f5e40b58a9"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1593275, 28951, 402, 11, 52, "Input",ExpressionUUID->"1f858f60-a343-4759-a040-1e075446a7aa"],
-Cell[1593680, 28964, 367, 8, 28, "Message",ExpressionUUID->"23644640-b4bb-438e-aec0-026b1245d7be"]
+Cell[1593521, 28970, 304, 8, 30, "Input",ExpressionUUID->"01b16b6f-093e-4cd9-9798-bce561b3147a"],
+Cell[1593828, 28980, 189, 3, 34, "Output",ExpressionUUID->"21a66a9e-30fb-4146-a174-65984271a182"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1594084, 28977, 262, 6, 30, "Input",ExpressionUUID->"80a1f7c8-d1b7-4d3a-83df-0d8762b252bc"],
-Cell[1594349, 28985, 124, 1, 34, "Output",ExpressionUUID->"df5e410f-0969-45fd-b9a7-563978793486"]
+Cell[1594054, 28988, 266, 7, 30, "Input",ExpressionUUID->"021a8d42-245b-46e7-bd2e-3ee172293e3d"],
+Cell[1594323, 28997, 128, 2, 34, "Output",ExpressionUUID->"d8e504c9-e1a2-4c05-88ad-e8e8b6c32454"]
+}, Open  ]],
+Cell[1594466, 29002, 761, 20, 73, "Input",ExpressionUUID->"1f858f60-a343-4759-a040-1e075446a7aa"],
+Cell[CellGroupData[{
+Cell[1595252, 29026, 304, 7, 30, "Input",ExpressionUUID->"39c8b624-f3e3-4d5a-8cb5-554f5037caf3"],
+Cell[1595559, 29035, 367, 8, 28, "Message",ExpressionUUID->"9485334f-2a46-44b9-9a1d-ff50811b9818"]
 }, Open  ]]
 }, Open  ]]
 }
