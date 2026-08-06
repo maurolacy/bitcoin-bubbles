@@ -1,11 +1,14 @@
-(* Helper: export a dated prediction plot under predictions/ and refresh the -latest symlink.
+(* Helper: export a dated prediction plot under predictions/ and refresh the -latest copy.
    Requires `base` (notebook directory, with trailing slash) to be set.
-   Load with: Get[base <> "PredictionsExport.wl"] *)
+   Load with: Get[base <> "PredictionsExport.wl"]
+
+   Note: `-latest.png` is a regular file copy (not a symlink). GitHub's README
+   renderer does not reliably follow symlinks for images. *)
 
 ClearAll[exportPrediction];
 
 exportPrediction[plot_, nameStem_String, date_String] := Module[
-  {dir, datedName, latestName, datedPath, latestPath, linkResult},
+  {dir, datedName, latestName, datedPath, latestPath},
   (* `base` is DirectoryName[NotebookFileName[]] and usually has a trailing slash *)
   dir = base <> "predictions";
   CreateDirectory[dir, CreateIntermediateDirectories -> True];
@@ -14,20 +17,11 @@ exportPrediction[plot_, nameStem_String, date_String] := Module[
   datedPath = FileNameJoin[{dir, datedName}];
   latestPath = FileNameJoin[{dir, latestName}];
   Export[datedPath, plot];
-  (* Relative symlink via ln: CreateSymbolicLink often fails when the target is a
-     basename (resolved against $HomeDirectory / cwd, not the link's directory). *)
-  linkResult = RunProcess[
-    {"ln", "-sfn", datedName, latestName},
-    ProcessDirectory -> dir
-  ];
-  If[linkResult["ExitCode"] =!= 0,
-    Message[exportPrediction::linkfail, latestName, linkResult["StandardError"]];
-    Return[$Failed]
-  ];
+  (* Plain copy so GitHub can serve the image from the fixed README path *)
+  If[FileExistsQ[latestPath] || DirectoryQ[latestPath], DeleteFile[latestPath]];
+  CopyFile[datedPath, latestPath];
   {datedPath, latestPath}
 ];
-
-exportPrediction::linkfail = "Failed to create symlink `1`: `2`";
 
 (* Examples (after plots are built):
 exportPrediction[pricePlot, "BTC_PricePrediction", lastPriceDate]

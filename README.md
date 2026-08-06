@@ -11,6 +11,18 @@ This repository contains implementations of:
 
 **⚠️ Important Disclaimer**: This is research/educational software. Not investment advice. Use at your own risk. See the [Disclaimer](#disclaimer) section below.
 
+## Latest Predictions
+
+Bitcoin overvaluation vs a generalized Metcalfe’s law fit (active addresses as a proxy for network users). Plots are refreshed from `bitcoinUsersCsvNoVAuto.nb` into [`predictions/`](./predictions/).
+
+### Parametric fit
+
+![BTC overvaluation (parametric)](./predictions/BTC_Overvaluation-P-latest.png)
+
+### Non-parametric fit
+
+![BTC overvaluation (non-parametric)](./predictions/BTC_Overvaluation-NP-latest.png)
+
 ## Dependencies
 
 - **Mathematica**: Version 12.0 or later (tested with versions 12.0 and 13.2).
