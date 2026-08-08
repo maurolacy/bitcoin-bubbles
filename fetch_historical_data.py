@@ -331,9 +331,110 @@ def _parse_date(s):
     return dt.replace(hour=0, minute=0, second=0, microsecond=0) if dt else None
 
 
+def list_pairs(exchange_id, filter_substr=None, active_only=True):
+    """
+    Load markets from an exchange and print matching trading pairs.
+    filter_substr: case-insensitive substring match on symbol (e.g. 'KAG', 'XAG', 'SILVER').
+    """
+    if not hasattr(ccxt, exchange_id):
+        raise SystemExit(f"Unknown exchange id: {exchange_id!r}")
+    exchange = getattr(ccxt, exchange_id)({
+        'enableRateLimit': True,
+    })
+    print(f"Loading markets from {exchange_id}...")
+    markets = exchange.load_markets()
+    symbols = sorted(markets.keys())
+    if filter_substr:
+        needle = filter_substr.upper()
+        symbols = [s for s in symbols if needle in s.upper()]
+    rows = []
+    for s in symbols:
+        m = markets[s]
+        if active_only and m.get('active') is False:
+            continue
+        rows.append({
+            'symbol': s,
+            'base': m.get('base'),
+            'quote': m.get('quote'),
+            'spot': m.get('spot'),
+            'active': m.get('active'),
+            'type': m.get('type'),
+        })
+    if not rows:
+        print(f"No pairs matched filter={filter_substr!r} on {exchange_id}.")
+        return
+    print(f"Found {len(rows)} pair(s) on {exchange_id}"
+          + (f" matching {filter_substr!r}" if filter_substr else "") + ":\n")
+    # Compact table
+    print(f"{'symbol':<28} {'base':<10} {'quote':<10} {'type':<10} {'spot':<6} {'active'}")
+    print("-" * 80)
+    for r in rows:
+        print(f"{r['symbol']:<28} {str(r['base'] or ''):<10} {str(r['quote'] or ''):<10} "
+              f"{str(r['type'] or ''):<10} {str(r['spot']):<6} {r['active']}")
+    # Hint if OHLCV is available
+    if exchange.has.get('fetchOHLCV'):
+        print(f"\nfetchOHLCV: supported. Timeframes: {sorted(exchange.timeframes.keys()) if exchange.timeframes else 'n/a'}")
+    else:
+        print("\nfetchOHLCV: NOT supported on this exchange via ccxt.")
+
+
+def scan_exchanges_for_filter(filter_substr, exchange_ids=None):
+    """
+    Probe several exchanges for pairs matching filter_substr.
+    Useful when hunting for Silver / KAG / XAG markets.
+    """
+    if exchange_ids is None:
+        exchange_ids = [
+            'bitmart', 'mexc', 'ascendex', 'binance', 'okx', 'bybit',
+            'gate', 'kucoin', 'kraken', 'coinbase', 'bitfinex', 'bitget',
+        ]
+    needle = filter_substr.upper()
+    print(f"Scanning exchanges for pairs matching {filter_substr!r}...\n")
+    any_hit = False
+    for eid in exchange_ids:
+        if not hasattr(ccxt, eid):
+            continue
+        try:
+            ex = getattr(ccxt, eid)({'enableRateLimit': True})
+            markets = ex.load_markets()
+            hits = sorted(s for s in markets if needle in s.upper()
+                          and markets[s].get('active') is not False)
+            if hits:
+                any_hit = True
+                ohlcv = 'yes' if ex.has.get('fetchOHLCV') else 'no'
+                print(f"{eid}: {len(hits)} hit(s), fetchOHLCV={ohlcv}")
+                for s in hits[:30]:
+                    print(f"  {s}")
+                if len(hits) > 30:
+                    print(f"  ... and {len(hits) - 30} more")
+                print()
+        except Exception as e:
+            print(f"{eid}: error — {e}\n")
+    if not any_hit:
+        print("No matching pairs found on the scanned exchanges.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Fetch OHLCV data from an exchange via ccxt (e.g. BitMart KAG/USDT).",
+    )
+    parser.add_argument(
+        "--list-pairs",
+        action="store_true",
+        help="List trading pairs on --exchange (optionally filter with --filter). "
+             "Does not download OHLCV.",
+    )
+    parser.add_argument(
+        "--scan",
+        action="store_true",
+        help="Scan several major exchanges for pairs matching --filter "
+             "(default filter: KAG). Does not download OHLCV.",
+    )
+    parser.add_argument(
+        "--filter",
+        metavar="SUBSTR",
+        help="With --list-pairs or --scan: case-insensitive substring filter "
+             "(e.g. KAG, XAG, SILVER, SLV).",
     )
     parser.add_argument(
         "--extend",
@@ -395,6 +496,14 @@ if __name__ == "__main__":
     output_file = args.output or f"./csv/{exchange_id.capitalize()}_{symbol.replace('/', '_')}_{timeframe}.csv"
     start_date = _parse_date(args.start)
     end_date = _parse_date(args.end)
+
+    if args.scan:
+        scan_exchanges_for_filter(args.filter or "KAG")
+        raise SystemExit(0)
+
+    if args.list_pairs:
+        list_pairs(exchange_id, filter_substr=args.filter)
+        raise SystemExit(0)
 
     if args.extend:
         if args.autodetect:
