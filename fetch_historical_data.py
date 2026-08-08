@@ -378,6 +378,21 @@ def list_pairs(exchange_id, filter_substr=None, active_only=True):
         print("\nfetchOHLCV: NOT supported on this exchange via ccxt.")
 
 
+def list_exchanges(filter_substr=None):
+    """Print ccxt exchange ids (optionally filtered by substring)."""
+    ids = sorted(ccxt.exchanges)
+    if filter_substr:
+        needle = filter_substr.lower()
+        ids = [e for e in ids if needle in e.lower()]
+    print(f"{len(ids)} exchange(s)" + (f" matching {filter_substr!r}" if filter_substr else "") + ":\n")
+    # Columns for readability
+    cols = 4
+    width = max((len(e) for e in ids), default=12) + 2
+    for i in range(0, len(ids), cols):
+        chunk = ids[i:i + cols]
+        print("".join(f"{e:<{width}}" for e in chunk))
+
+
 def scan_exchanges_for_filter(filter_substr, exchange_ids=None):
     """
     Probe several exchanges for pairs matching filter_substr.
@@ -419,6 +434,12 @@ if __name__ == "__main__":
         description="Fetch OHLCV data from an exchange via ccxt (e.g. BitMart KAG/USDT).",
     )
     parser.add_argument(
+        "--list-exchanges",
+        action="store_true",
+        help="List ccxt exchange ids (optionally filter with --filter). "
+             "Does not download OHLCV.",
+    )
+    parser.add_argument(
         "--list-pairs",
         action="store_true",
         help="List trading pairs on --exchange (optionally filter with --filter). "
@@ -433,8 +454,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--filter",
         metavar="SUBSTR",
-        help="With --list-pairs or --scan: case-insensitive substring filter "
-             "(e.g. KAG, XAG, SILVER, SLV).",
+        help="With --list-exchanges, --list-pairs, or --scan: case-insensitive "
+             "substring filter (e.g. mexc, KAG, XAG, SILVER).",
     )
     parser.add_argument(
         "--extend",
@@ -496,6 +517,10 @@ if __name__ == "__main__":
     output_file = args.output or f"./csv/{exchange_id.capitalize()}_{symbol.replace('/', '_')}_{timeframe}.csv"
     start_date = _parse_date(args.start)
     end_date = _parse_date(args.end)
+
+    if args.list_exchanges:
+        list_exchanges(filter_substr=args.filter)
+        raise SystemExit(0)
 
     if args.scan:
         scan_exchanges_for_filter(args.filter or "KAG")
