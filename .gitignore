@@ -6,7 +6,7 @@ tmp/
 *.nb~
 
 # Generated outputs (uncomment if you don't want to commit these)
-#pdf/
+pdf/
 png/
 csv/
 
@@ -26,5 +26,3 @@ csv/
 
 # Python venv
 pyvenv.cfg
-bin/
-lib/
