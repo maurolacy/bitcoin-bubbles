@@ -1,6 +1,6 @@
 # BTC_Overvaluation-P
 
-![BTC_Overvaluation-P](./BTC_Overvaluation-P-latest.png)
+![BTC_Overvaluation-P](./BTC_Overvaluation-P-2026-08-22.png)
 
 - **As of:** 2026-08-22
 - **Latest price (USD):** 77083.4
